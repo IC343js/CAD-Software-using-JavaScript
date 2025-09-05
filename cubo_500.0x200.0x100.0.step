@@ -1,0 +1,107 @@
+ISO-10303-21;
+HEADER;
+FILE_DESCRIPTION(('Cubo 3D - 500x200x100'),'2;1');
+FILE_NAME('cubo_500.0x200.0x100.0.step','2025-06-07T20-23-57-697Z',('Usuario'),('Generador Web'),'Navegador','STEP Export v1.0','');
+FILE_SCHEMA(('AUTOMOTIVE_DESIGN'));
+ENDSEC;
+
+DATA;
+/* === CONTEXTO Y UNIDADES === */
+#1 = APPLICATION_CONTEXT('automotive_design');
+#2 = APPLICATION_PROTOCOL_DEFINITION('international standard','automotive_design',1994,#1);
+#3 = (GEOMETRIC_REPRESENTATION_CONTEXT(3)GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#7))GLOBAL_UNIT_ASSIGNED_CONTEXT((#4,#5,#6))REPRESENTATION_CONTEXT('Context #1','3D Context with UNIT and UNCERTAINTY'));
+#4 = (LENGTH_UNIT()NAMED_UNIT(*)SI_UNIT(.MILLI.,.METRE.));
+#5 = (NAMED_UNIT(*)PLANE_ANGLE_UNIT()SI_UNIT($,.RADIAN.));
+#6 = (NAMED_UNIT(*)SOLID_ANGLE_UNIT()SI_UNIT($,.STERADIAN.));
+#7 = UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(1.E-07),#4,'distance_accuracy_value','confusion accuracy');
+
+/* === SISTEMA DE COORDENADAS === */
+#8 = CARTESIAN_POINT('Origin',(0.,0.,0.));
+#9 = DIRECTION('Z',(0.,0.,1.));
+#10 = DIRECTION('X',(1.,0.,0.));
+#11 = DIRECTION('Y',(0.,1.,0.));
+#12 = AXIS2_PLACEMENT_3D('World',#8,#9,#10);
+
+/* === VERTICES DEL CUBO === */
+#20 = CARTESIAN_POINT('P1',(0.,0.,0.));
+#21 = CARTESIAN_POINT('P2',(500,0.,0.));
+#22 = CARTESIAN_POINT('P3',(500,200,0.));
+#23 = CARTESIAN_POINT('P4',(0.,200,0.));
+#24 = CARTESIAN_POINT('P5',(0.,0.,100));
+#25 = CARTESIAN_POINT('P6',(500,0.,100));
+#26 = CARTESIAN_POINT('P7',(500,200,100));
+#27 = CARTESIAN_POINT('P8',(0.,200,100));
+
+/* === DIRECCIONES === */
+#30 = DIRECTION('DX',(1.,0.,0.));
+#31 = DIRECTION('DY',(0.,1.,0.));
+#32 = DIRECTION('DZ',(0.,0.,1.));
+#33 = DIRECTION('D-X',(-1.,0.,0.));
+#34 = DIRECTION('D-Y',(0.,-1.,0.));
+#35 = DIRECTION('D-Z',(0.,0,-1.));
+
+/* === VECTORES === */
+#40 = VECTOR('VX',#30,500);
+#41 = VECTOR('VY',#31,200);
+#42 = VECTOR('VZ',#32,100);
+
+/* === LÍNEAS (ARISTAS) === */
+#50 = LINE('L1',#20,#40);  /* P1-P2 */
+#51 = LINE('L2',#21,#41);  /* P2-P3 */
+#52 = LINE('L3',#22,#33);  /* P3-P4 */
+#53 = LINE('L4',#23,#34);  /* P4-P1 */
+#54 = LINE('L5',#24,#40);  /* P5-P6 */
+#55 = LINE('L6',#25,#41);  /* P6-P7 */
+#56 = LINE('L7',#26,#33);  /* P7-P8 */
+#57 = LINE('L8',#27,#34);  /* P8-P5 */
+#58 = LINE('L9',#20,#42);  /* P1-P5 */
+#59 = LINE('L10',#21,#42); /* P2-P6 */
+#60 = LINE('L11',#22,#42); /* P3-P7 */
+#61 = LINE('L12',#23,#42); /* P4-P8 */
+
+/* === CARAS DEL CUBO === */
+/* Cara inferior (Z=0) */
+#70 = PLANE('Bottom',#71);
+#71 = AXIS2_PLACEMENT_3D('BottomPlace',#20,#35,#30);
+
+/* Cara superior (Z=100) */
+#72 = PLANE('Top',#73);
+#73 = AXIS2_PLACEMENT_3D('TopPlace',#24,#32,#30);
+
+/* Cara frontal (Y=0) */
+#74 = PLANE('Front',#75);
+#75 = AXIS2_PLACEMENT_3D('FrontPlace',#20,#34,#30);
+
+/* Cara trasera (Y=200) */
+#76 = PLANE('Back',#77);
+#77 = AXIS2_PLACEMENT_3D('BackPlace',#23,#31,#30);
+
+/* Cara izquierda (X=0) */
+#78 = PLANE('Left',#79);
+#79 = AXIS2_PLACEMENT_3D('LeftPlace',#20,#33,#32);
+
+/* Cara derecha (X=500) */
+#80 = PLANE('Right',#81);
+#81 = AXIS2_PLACEMENT_3D('RightPlace',#21,#30,#32);
+
+/* === GEOMETRÍA SÓLIDA === */
+#100 = BLOCK();
+#101 = AXIS2_PLACEMENT_3D('BlockPlace',#20,#32,#30);
+#102 = SHAPE_REPRESENTATION_RELATIONSHIP('','',#103,#104);
+#103 = SHAPE_REPRESENTATION('Block',(#100),#3);
+#104 = SHAPE_REPRESENTATION('Context',(#12),#3);
+
+/* === DEFINICIÓN DEL PRODUCTO === */
+#200 = PRODUCT('CUBO_3D','Cubo sólido 500x200x100 mm','documento-generado',(#201));
+#201 = PRODUCT_CONTEXT('',#1,'mechanical');
+#202 = PRODUCT_DEFINITION_FORMATION('','',#200);
+#203 = PRODUCT_DEFINITION('design','',#202,#204);
+#204 = PRODUCT_DEFINITION_CONTEXT('part definition',#1,'design');
+#205 = PRODUCT_DEFINITION_SHAPE('','',#203);
+
+/* === REPRESENTACIÓN GEOMÉTRICA === */
+#300 = SHAPE_DEFINITION_REPRESENTATION(#205,#103);
+#301 = NEXT_ASSEMBLY_USAGE_OCCURRENCE('','','',#203,#203,$);
+
+ENDSEC;
+END-ISO-10303-21;
